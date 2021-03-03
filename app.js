@@ -1,96 +1,122 @@
+/*
+# ExpressJS Site by Erdem Temizdemir @ SRH BSDC 2021
+# app.js for serving handlesbars, scripts & stylesheets
+# Requirements: NodeJS, Express, Handlebars
+# Description:
+# ExpressJS App for server-sided browser content delivery
+# Served by ExpressJS
+# Teacher: David Linner @ SRH BSDC 2021
+*/
+
+/* ExpressJS Import */
 const express = require('express')
 const handlebars = require('express-handlebars')
+/* ################ */
 
+/* File System */
 const {readFile, writeFile, existsSync} = require('fs')
 const path = require('path')
+/* ########### */
 
-const STYLE_DIR = path.join(__dirname, 'styles');
-const CHANNEL_DIR = path.join(__dirname, 'channels');
+/* Directories */
+const STYLE_DIR = path.join(__dirname, 'styles')
+const SCRIPT_DIR = path.join(__dirname, 'scripts')
+const CHANNEL_DIR = path.join(__dirname, 'channels')
 const FILE_OPTIONS = {encoding: "utf8"}
+/* ########### */
 
+/* ExpressJS App Init */
 const app = express()
 const port = 3000
+/* ################## */
 
+/* ExpressJS View Engine */
 app.engine('handlebars', handlebars())
 app.set('view engine', 'handlebars')
+/* ##################### */
 
+/* ExpressJS Static */
 app.use('/static',express.static('./public'))
 app.use(express.urlencoded())
+/* ################ */
 
+/* ExpressJS -> HandleBar Requirements */
 app.get('/style.css', function(request, response) {
-    response.sendFile(STYLE_DIR + "/" + "style.css");
+    response.sendFile(STYLE_DIR + "/" + "style.css")
 });
 
 app.get('/animate.css', function(request, response) {
-    response.sendFile(STYLE_DIR + "/" + "animate.css");
+    response.sendFile(STYLE_DIR + "/" + "animate.css")
 });
 
-app.get('/', (request, response) => {
-    response.redirect('/channels/channel1');
-})
+app.get('/home.js', function(request, response) {
+    response.sendFile(SCRIPT_DIR + "/" + "home.js")
+});
+/* ################################### */
 
+/* Home Directory Redirect */
+app.get('/', (request, response) => {
+    response.redirect('/channels/channel1')
+})
+/* ####################### */
+
+/* Default Vars */
 let channelFileName = path.join(CHANNEL_DIR, `channel1.json`)
 let standardChannelName = 'channel1'
+/* ############ */
 
+/* HTTP (GET) Read -> /channels/*.json */
 app.get('/channels/:channelName/', (request, response) => {
-
     const {channelName} = request.params
-
     standardChannelName = channelName;
-
     channelFileName = path.join(CHANNEL_DIR, `${channelName}.json`)
-
     if(!existsSync(channelFileName)){
         response.status(404).end()
         return
     }
-
     readFile(
         channelFileName,
         FILE_OPTIONS,
         (error, data) => {
             if(error){
-                response.status(500).end();
+                response.status(500).end()
             }
-            const channel = JSON.parse(data);
+            const channel = JSON.parse(data)
             response.render('home', {channel})
         })
 })
+/* ################################### */
 
-
+/* HTTP (POST) Read&Write -> /channels/*.json */
 app.post('/message-board/new',(request, response) => {
-
     const { author, message } = request.body
-
     const content = {
         author,
         message,
     }
-
     readFile(
         channelFileName,
         FILE_OPTIONS,
         (error, message) => {
             if (error) {
-                response.status(500).end();
+                response.status(500).end()
                 return
             }
-
             const data = JSON.parse(message)
             data.messages.unshift(content)
-
-
             writeFile(channelFileName, JSON.stringify(data, null, 2), FILE_OPTIONS, (error) => {
                 if(error){
-                    response.status(500).end();
+                    response.status(500).end()
                 } else {
-                    response.redirect(`/channels/${standardChannelName}`);
+                    response.redirect(`/channels/${standardChannelName}`)
                 }
             })
         })
 })
+/* ########################################## */
 
-
+/* ExpressJS Listen on Port */
 app.listen(port, () => {
     console.log(`Beispiel App hört zu bei http://localhost:${port}`)
 })
+/* ######################## */

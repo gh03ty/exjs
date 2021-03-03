@@ -2,6 +2,10 @@
   "name": "Channel 1",
   "messages": [
     {
+      "author": "qwe",
+      "message": "qwe"
+    },
+    {
       "author": "Test1",
       "message": "Test"
     }
