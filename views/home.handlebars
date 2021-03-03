@@ -57,26 +57,24 @@
         <h2 class="border-bottom-green font-centered border-top-green border-gray pt-4 pb-4 mb-0">{{#channel}}{{name}}{{/channel}}</h2>
         <div class="container-fluid button-container btn-group">
             <button class="btn-chn openbtn btn btn-channel button-menu" value="OFF" onclick="toggleChannel(this)">&#9776; Change Channel</button>
-            <button class="btn-msg openbtn btn btn-channel button-menu" id="message-button" value="OFF" data-toggle="collapse" data-target="#messagebox"  onclick="toggleMessageBox(this)">Open Message Box</button>
+            <button class="btn-msg openbtn btn btn-channel button-menu" id="message-button" value="ON" data-toggle="collapse" data-target="#messagebox"  onclick="toggleMessageBox(this)">Open Message Box</button>
+        </div>
+        <div id="messagebox" class="collapse">
+            <div class="my-3 p-3">
+                <form method = "post" action='/message-board/new'>
+                    <div class="mb-3">
+                        <label for="author" class="form-label">Author</label>
+                        <input name="author" type="text" class="form-control" id="author" placeholder="John Doe">
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Message</label>
+                        <textarea name="message" class="form-control" id="message" rows="3"></textarea>
+                    </div>
+                    <button class="btn btn-right btn-primary" type="submit">Post your message</button>
+                </form>
+            </div>
         </div>
     </div>
-
-    <div id="messagebox" class="my-3 bg-white rounded box-shadow collapse">
-        <div class="my-3 p-3">
-            <form method = "post" action='/message-board/new'>
-                <div class="mb-3">
-                    <label for="author" class="form-label">Author</label>
-                    <input name="author" type="text" class="form-control" id="author" placeholder="John Doe">
-                </div>
-                <div class="mb-3">
-                    <label for="message" class="form-label">Message</label>
-                    <textarea name="message" class="form-control" id="message" rows="3"></textarea>
-                </div>
-                <button class="btn btn-right btn-primary" type="submit">Post your message</button>
-            </form>
-        </div>
-    </div>
-
     <div class="my-3 p-3 bg-white rounded box-shadow">
         <h6 class="border-bottom border-gray pb-2 mb-0">Messages</h6>
         {{#channel}}
