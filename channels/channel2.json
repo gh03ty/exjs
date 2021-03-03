@@ -1,0 +1,9 @@
+{
+  "name": "Channel 2",
+  "messages": [
+    {
+      "author": "Test1",
+      "message": "Test"
+    }
+  ]
+}
