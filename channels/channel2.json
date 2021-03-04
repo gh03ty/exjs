@@ -1,9 +1,17 @@
 {
-  "name": "Channel 2",
+  "name": "Web Devs",
   "messages": [
     {
-      "author": "Test1",
-      "message": "Test"
+      "author": "Steen Helmdach",
+      "message": "Aber React ist viel viel besser !"
+    },
+    {
+      "author": "Kevin Lehmann",
+      "message": "Nein, Angular ist besser !"
+    },
+    {
+      "author": "Steen Helmdach",
+      "message": "React ist die beste Javascript Framework."
     }
   ]
 }

@@ -1,13 +1,21 @@
 {
-  "name": "Channel 1",
+  "name": "General",
   "messages": [
     {
-      "author": "qwe",
-      "message": "qwe"
+      "author": "Generischer Student No.2",
+      "message": "Am Besten ist immernoch David Linner !"
     },
     {
-      "author": "Test1",
-      "message": "Test"
+      "author": "Generischer Student No.1",
+      "message": "Die Lehrer sind einfach die Besten !"
+    },
+    {
+      "author": "Generischer Student No.2",
+      "message": "Ich liebe es auch !"
+    },
+    {
+      "author": "Generischer Student No.1",
+      "message": "Ich liebe es an der SRH Berlin zu studieren !"
     }
   ]
 }

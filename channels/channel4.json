@@ -1,9 +1,17 @@
 {
-  "name": "Channel 4",
+  "name": "Lehrer Talk",
   "messages": [
     {
-      "author": "Test3",
-      "message": "Test"
+      "author": "David Linner",
+      "message": "Dann kann ich ja gleich auf mein Gehalt verzichten."
+    },
+    {
+      "author": "Gabor Kovacs",
+      "message": "Du kriegst deine Gehaltserhöhung, wenn die Idioten von Web Devs endlich was zustande bekommen."
+    },
+    {
+      "author": "David Linner",
+      "message": "Gabor, Ich habe endlich mal eine Gehaltserhöhung verdient !"
     }
   ]
 }

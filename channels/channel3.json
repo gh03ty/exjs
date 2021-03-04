@@ -1,9 +1,17 @@
 {
-  "name": "Channel 3",
+  "name": "Programming II",
   "messages": [
     {
-      "author": "Test2",
-      "message": "Test"
+      "author": "Steen Helmdach",
+      "message": "Bin schon seit 2 Wochen fertig!"
+    },
+    {
+      "author": "Stefan Groneberg",
+      "message": "Die Aufgaben sind doch garnicht so schwierig."
+    },
+    {
+      "author": "Sascha Zierke",
+      "message": "Boah, David hat wiedermal voll die schwierigen Aufgaben gestellt."
     }
   ]
 }
