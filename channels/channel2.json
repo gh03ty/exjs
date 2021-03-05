@@ -1,6 +1,11 @@
 {
   "name": "Web Devs",
+  "channel_id": "channel2",
   "messages": [
+    {
+      "author": "Sascha Zierke",
+      "message": "Was ist mit Vue.js ?"
+    },
     {
       "author": "Steen Helmdach",
       "message": "Aber React ist viel viel besser !"

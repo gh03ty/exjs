@@ -1,6 +1,11 @@
 {
   "name": "General",
+  "channel_id": "channel1",
   "messages": [
+    {
+      "author": "Gabor Kovacs",
+      "message": "Ich bin doch viel besser !"
+    },
     {
       "author": "Generischer Student No.2",
       "message": "Am Besten ist immernoch David Linner !"

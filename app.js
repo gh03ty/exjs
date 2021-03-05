@@ -40,24 +40,18 @@ app.use('/static',express.static('./public'))
 app.use(express.urlencoded())
 /* ################ */
 
-/* ################################### */
-
 /* Home Directory Redirect */
 app.get('/', (request, response) => {
     response.redirect('/channels/channel1')
 })
 /* ####################### */
 
-/* Default Vars */
-let channelFileName = path.join(CHANNEL_DIR, `channel1.json`)
-let standardChannelName = 'channel1'
-/* ############ */
-
 /* HTTP (GET) Read -> /channels/*.json */
 app.get('/channels/:channelName/', (request, response) => {
+
     const {channelName} = request.params
-    standardChannelName = channelName;
-    channelFileName = path.join(CHANNEL_DIR, `${channelName}.json`)
+    const channelFileName = path.join(CHANNEL_DIR, `${channelName}.json`)
+
     if(!existsSync(channelFileName)){
         response.status(404).end()
         return
@@ -76,7 +70,9 @@ app.get('/channels/:channelName/', (request, response) => {
 /* ################################### */
 
 /* HTTP (POST) Read&Write -> /channels/*.json */
-app.post('/message-board/new',(request, response) => {
+app.post('/channels/:channelName/new',(request, response) => {
+    const {channelName} = request.params
+    const channelFileName = path.join(CHANNEL_DIR, `${channelName}.json`)
     const { author, message } = request.body
     const content = {
         author,
@@ -96,7 +92,7 @@ app.post('/message-board/new',(request, response) => {
                 if(error){
                     response.status(500).end()
                 } else {
-                    response.redirect(`/channels/${standardChannelName}`)
+                    response.redirect(`/channels/${channelName}`)
                 }
             })
         })
