@@ -40,18 +40,6 @@ app.use('/static',express.static('./public'))
 app.use(express.urlencoded())
 /* ################ */
 
-/* ExpressJS -> HandleBar Requirements */
-app.get('/style.css', function(request, response) {
-    response.sendFile(STYLE_DIR + "/" + "style.css")
-});
-
-app.get('/animate.css', function(request, response) {
-    response.sendFile(STYLE_DIR + "/" + "animate.css")
-});
-
-app.get('/home.js', function(request, response) {
-    response.sendFile(SCRIPT_DIR + "/" + "home.js")
-});
 /* ################################### */
 
 /* Home Directory Redirect */
