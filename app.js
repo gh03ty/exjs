@@ -14,13 +14,11 @@ const handlebars = require('express-handlebars')
 /* ################ */
 
 /* File System */
-const {readFile, writeFile, existsSync} = require('fs')
+const {readFile, writeFile, readdir, existsSync} = require('fs')
 const path = require('path')
 /* ########### */
 
 /* Directories */
-const STYLE_DIR = path.join(__dirname, 'styles')
-const SCRIPT_DIR = path.join(__dirname, 'scripts')
 const CHANNEL_DIR = path.join(__dirname, 'channels')
 const FILE_OPTIONS = {encoding: "utf8"}
 /* ########### */
@@ -46,6 +44,8 @@ app.get('/', (request, response) => {
 })
 /* ####################### */
 
+
+
 /* HTTP (GET) Read -> /channels/*.json */
 app.get('/channels/:channelName/', (request, response) => {
 
@@ -56,6 +56,44 @@ app.get('/channels/:channelName/', (request, response) => {
         response.status(404).end()
         return
     }
+
+    let channelList = []
+    let channelDirList = []
+    let channelFriendlyNames = []
+
+    readdir(CHANNEL_DIR, (error, files) => {
+        for(let file of files) {
+            let currentChannel = path.join(CHANNEL_DIR, file)
+            channelDirList.push(currentChannel)
+            channelList.push(file.slice(0, -5))
+            friendlyGen()
+            }
+    })
+
+    function readJSON(filePath) {
+        readFile(
+            filePath,
+            FILE_OPTIONS,
+            (error, data) => {
+
+                if (error) {
+                    response.status(500).end()
+                }
+                
+                let channel = JSON.parse(data)
+                /*console.log(channel.name)*/
+                let friendlyName = channel.name
+                return friendlyName
+            }
+        )
+    }
+
+    function friendlyGen() {
+        for (let i = 0; i !== channelDirList.length; i++) {
+            console.log(readJSON(channelDirList[i]))
+        }
+    }
+
     readFile(
         channelFileName,
         FILE_OPTIONS,
