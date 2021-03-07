@@ -59,25 +59,25 @@ app.get('/channels/:channelName/', (request, response) => {
     let channelList = []
 
     const files = readdirSync(CHANNEL_DIR, FILE_OPTIONS)
-        for(let file of files) {
-            let currentChannel = path.join(CHANNEL_DIR, file)
+    for(let file of files) {
+        let currentChannel = path.join(CHANNEL_DIR, file)
 
-            let fileData = readFileSync(currentChannel, FILE_OPTIONS)
-                    const channel = JSON.parse(fileData)
-                    const json_content = {"name": channel.name, "channel_id": channel.channel_id}
-                    channelList.push(json_content)
-                }
+        let fileData = readFileSync(currentChannel, FILE_OPTIONS)
+        const channel = JSON.parse(fileData)
+        const json_content = {"name": channel.name, "channel_id": channel.channel_id}
+        channelList.push(json_content)
+    }
 
-        readFile(
-            channelFileName,
-            FILE_OPTIONS,
-            (error, data) => {
-                if(error){
-                    response.status(500).end()
-                }
-                const channel = JSON.parse(data)
-                response.render('home', {channel, channelList})
-            })
+    readFile(
+        channelFileName,
+        FILE_OPTIONS,
+        (error, data) => {
+            if(error){
+                response.status(500).end()
+            }
+            const channel = JSON.parse(data)
+            response.render('home', {channel, channelList})
+        })
 })
 /* ################################### */
 
