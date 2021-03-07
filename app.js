@@ -47,7 +47,7 @@ app.get('/', (request, response) => {
 let existingChannelIDs = ['channel']
 let existingChannelNames = []
 
-/* HTTP (GET) Read -> /channels/*.json */
+/* HTTP (GET) Read -> /channels/*.json | Reading JSON Content */
 app.get('/channels/:channelName/', (request, response) => {
 
     existingChannelIDs = ['channel']
@@ -85,9 +85,9 @@ app.get('/channels/:channelName/', (request, response) => {
             response.render('home', {channel, channelList})
         })
 })
-/* ################################### */
+/* ########################################################## */
 
-/* HTTP (POST) Read&Write -> /channels/*.json */
+/* HTTP (POST) Read&Write -> /channels/*.json | Writing messages to JSON */
 app.post('/channels/:channelName/newMessage',(request, response) => {
     const {channelName} = request.params
     const channelFileName = path.join(CHANNEL_DIR, `${channelName}.json`)
@@ -115,7 +115,9 @@ app.post('/channels/:channelName/newMessage',(request, response) => {
             })
         })
 })
+/* ##################################################################### */
 
+/* HTTP (POST) Read&Write -> /channels/newChannel | Channel Creation */
 app.post('/channels/newChannel', (request, response) => {
     const {newChannelName} = request.body
 
@@ -144,8 +146,7 @@ app.post('/channels/newChannel', (request, response) => {
         }
     })
 })
-
-/* ########################################## */
+/* ################################################################# */
 
 /* ExpressJS Listen on Port */
 app.listen(port, () => {
