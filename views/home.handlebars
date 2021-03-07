@@ -16,6 +16,14 @@
                 <a href="/channels/{{channel_id}}">{{name}}</a>
             </div>
         {{/each}}
+        <form method= "post" , action='/channels/newChannel'>
+            <div class="m-3">
+                <input name="newChannelName" type="text" class="form-control" id="newChannelName" placeholder="New channel name here">
+            </div>
+            <div class="mr-3">
+                <button class="btn btn-right btn-primary" type="submit">Create Channel</button>
+            </div>
+        </form>
     </div>
 </div>
 <!-- ####### -->
@@ -53,7 +61,7 @@
             <div class="my-3 p-3">
 
                 <!-- MESSAGE INPUT FORM -->
-                <form method = "post" action='/channels/{{#channel}}{{channel_id}}{{/channel}}/new'>
+                <form method = "post" action='/channels/{{#channel}}{{channel_id}}{{/channel}}/newMessage'>
 
                     <div class="mb-3">
                         <label for="author" class="form-label">Author</label>

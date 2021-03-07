@@ -44,10 +44,14 @@ app.get('/', (request, response) => {
 })
 /* ####################### */
 
+let existingChannelIDs = ['channel']
+let existingChannelNames = []
 
 /* HTTP (GET) Read -> /channels/*.json */
 app.get('/channels/:channelName/', (request, response) => {
 
+    existingChannelIDs = ['channel']
+    existingChannelNames = []
     const {channelName} = request.params
     const channelFileName = path.join(CHANNEL_DIR, `${channelName}.json`)
 
@@ -65,6 +69,8 @@ app.get('/channels/:channelName/', (request, response) => {
         let fileData = readFileSync(currentChannel, FILE_OPTIONS)
         const channel = JSON.parse(fileData)
         const json_content = {"name": channel.name, "channel_id": channel.channel_id}
+        existingChannelNames.push(channel.name)
+        existingChannelIDs.push(channel.channel_id)
         channelList.push(json_content)
     }
 
@@ -82,7 +88,7 @@ app.get('/channels/:channelName/', (request, response) => {
 /* ################################### */
 
 /* HTTP (POST) Read&Write -> /channels/*.json */
-app.post('/channels/:channelName/new',(request, response) => {
+app.post('/channels/:channelName/newMessage',(request, response) => {
     const {channelName} = request.params
     const channelFileName = path.join(CHANNEL_DIR, `${channelName}.json`)
     const { author, message } = request.body
@@ -109,6 +115,36 @@ app.post('/channels/:channelName/new',(request, response) => {
             })
         })
 })
+
+app.post('/channels/newChannel', (request, response) => {
+    const {newChannelName} = request.body
+
+    if(existingChannelNames.includes(newChannelName)) {
+        response.status(500).end()
+        return
+    }
+
+    let newChannelID = 'channel';
+    let i = 0;
+    while(existingChannelIDs.includes(newChannelID)) {
+        i++
+        newChannelID = "channel"
+        newChannelID = newChannelID + i
+    }
+
+    const channelFileName = path.join(CHANNEL_DIR, `${newChannelID}.json`)
+    let data = {"name": newChannelName, "channel_id": newChannelID, "messages": []}
+
+
+    writeFile(channelFileName, JSON.stringify(data, null, 2), FILE_OPTIONS, (error) => {
+        if (error) {
+            response.status(500).end()
+        } else {
+            response.redirect(`/channels/${newChannelID}`)
+        }
+    })
+})
+
 /* ########################################## */
 
 /* ExpressJS Listen on Port */
