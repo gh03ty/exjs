@@ -3,6 +3,10 @@
   "channel_id": "channel3",
   "messages": [
     {
+      "author": "Test 3",
+      "message": "Test 3"
+    },
+    {
       "author": "Steen Helmdach",
       "message": "Bin schon seit 2 Wochen fertig!"
     },

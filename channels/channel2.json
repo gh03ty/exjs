@@ -3,6 +3,10 @@
   "channel_id": "channel2",
   "messages": [
     {
+      "author": "Test 2",
+      "message": "Test 2"
+    },
+    {
       "author": "Sascha Zierke",
       "message": "Was ist mit Vue.js ?"
     },

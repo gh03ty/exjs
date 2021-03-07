@@ -14,7 +14,7 @@ const handlebars = require('express-handlebars')
 /* ################ */
 
 /* File System */
-const {readFile, writeFile, readdir, existsSync} = require('fs')
+const {readFileSync, readFile, writeFile, readdirSync, existsSync} = require('fs')
 const path = require('path')
 /* ########### */
 
@@ -58,20 +58,15 @@ app.get('/channels/:channelName/', (request, response) => {
 
     let channelList = []
 
-    readdir(CHANNEL_DIR, (error, files) => {
-
+    const files = readdirSync(CHANNEL_DIR, FILE_OPTIONS)
         for(let file of files) {
             let currentChannel = path.join(CHANNEL_DIR, file)
 
-            readFile(
-                currentChannel,
-                FILE_OPTIONS,
-                (error, data) => {
-                    const channel = JSON.parse(data)
+            let fileData = readFileSync(currentChannel, FILE_OPTIONS)
+                    const channel = JSON.parse(fileData)
                     const json_content = {"name": channel.name, "channel_id": channel.channel_id}
                     channelList.push(json_content)
-                })
-        }
+                }
 
         readFile(
             channelFileName,
@@ -83,8 +78,6 @@ app.get('/channels/:channelName/', (request, response) => {
                 const channel = JSON.parse(data)
                 response.render('home', {channel, channelList})
             })
-    })
-
 })
 /* ################################### */
 
