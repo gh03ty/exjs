@@ -45,7 +45,6 @@ app.get('/', (request, response) => {
 /* ####################### */
 
 
-
 /* HTTP (GET) Read -> /channels/*.json */
 app.get('/channels/:channelName/', (request, response) => {
 
@@ -58,52 +57,34 @@ app.get('/channels/:channelName/', (request, response) => {
     }
 
     let channelList = []
-    let channelDirList = []
-    let channelFriendlyNames = []
 
     readdir(CHANNEL_DIR, (error, files) => {
+
         for(let file of files) {
             let currentChannel = path.join(CHANNEL_DIR, file)
-            channelDirList.push(currentChannel)
-            channelList.push(file.slice(0, -5))
-            friendlyGen()
-            }
-    })
 
-    function readJSON(filePath) {
+            readFile(
+                currentChannel,
+                FILE_OPTIONS,
+                (error, data) => {
+                    const channel = JSON.parse(data)
+                    const json_content = {"name": channel.name, "channel_id": channel.channel_id}
+                    channelList.push(json_content)
+                })
+        }
+
         readFile(
-            filePath,
+            channelFileName,
             FILE_OPTIONS,
             (error, data) => {
-
-                if (error) {
+                if(error){
                     response.status(500).end()
                 }
-                
-                let channel = JSON.parse(data)
-                /*console.log(channel.name)*/
-                let friendlyName = channel.name
-                return friendlyName
-            }
-        )
-    }
+                const channel = JSON.parse(data)
+                response.render('home', {channel, channelList})
+            })
+    })
 
-    function friendlyGen() {
-        for (let i = 0; i !== channelDirList.length; i++) {
-            console.log(readJSON(channelDirList[i]))
-        }
-    }
-
-    readFile(
-        channelFileName,
-        FILE_OPTIONS,
-        (error, data) => {
-            if(error){
-                response.status(500).end()
-            }
-            const channel = JSON.parse(data)
-            response.render('home', {channel})
-        })
 })
 /* ################################### */
 
