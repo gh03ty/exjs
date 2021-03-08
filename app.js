@@ -49,19 +49,15 @@ let existingChannelNames = []
 
 /* HTTP (GET) Read -> /channels/*.json | Reading JSON Content */
 app.get('/channels/:channelName/', (request, response) => {
-
     existingChannelIDs = ['channel']
     existingChannelNames = []
     const {channelName} = request.params
     const channelFileName = path.join(CHANNEL_DIR, `${channelName}.json`)
-
     if(!existsSync(channelFileName)){
         response.status(404).end()
         return
     }
-
     let channelList = []
-
     const files = readdirSync(CHANNEL_DIR, FILE_OPTIONS)
     for(let file of files) {
         let currentChannel = path.join(CHANNEL_DIR, file)
@@ -73,7 +69,6 @@ app.get('/channels/:channelName/', (request, response) => {
         existingChannelIDs.push(channel.channel_id)
         channelList.push(json_content)
     }
-
     readFile(
         channelFileName,
         FILE_OPTIONS,
@@ -120,12 +115,10 @@ app.post('/channels/:channelName/newMessage',(request, response) => {
 /* HTTP (POST) Read&Write -> /channels/newChannel | Channel Creation */
 app.post('/channels/newChannel', (request, response) => {
     const {newChannelName} = request.body
-
     if(existingChannelNames.includes(newChannelName)) {
         response.status(500).end()
         return
     }
-
     let newChannelID = 'channel';
     let i = 0;
     while(existingChannelIDs.includes(newChannelID)) {
@@ -133,11 +126,8 @@ app.post('/channels/newChannel', (request, response) => {
         newChannelID = "channel"
         newChannelID = newChannelID + i
     }
-
     const channelFileName = path.join(CHANNEL_DIR, `${newChannelID}.json`)
     let data = {"name": newChannelName, "channel_id": newChannelID, "messages": []}
-
-
     writeFile(channelFileName, JSON.stringify(data, null, 2), FILE_OPTIONS, (error) => {
         if (error) {
             response.status(500).end()
