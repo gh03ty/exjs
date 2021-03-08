@@ -14,7 +14,7 @@ const handlebars = require('express-handlebars')
 /* ################ */
 
 /* File System */
-const {readFileSync, readFile, writeFile, readdirSync, existsSync} = require('fs')
+const {readFileSync, rmSync, readFile, writeFile, readdirSync, existsSync} = require('fs')
 const path = require('path')
 /* ########### */
 
@@ -147,6 +147,19 @@ app.post('/channels/newChannel', (request, response) => {
     })
 })
 /* ################################################################# */
+
+/* HTTP (POST) Remove -> /channels/:channelName/deleteChannel | Channel Deletion */
+app.post('/channels/:channelName/deleteChannel', (request, response) => {
+    const {currentChannel, channelName} = request.params
+    const channelFileDir = path.join(CHANNEL_DIR, `${channelName}.json`)
+    if (existingChannelIDs.includes(channelName)) {
+        rmSync(channelFileDir)
+        response.redirect('/')
+    } else {
+        response.status(404).end()
+    }
+})
+/* ############################################################################# */
 
 /* ExpressJS Listen on Port */
 app.listen(port, () => {

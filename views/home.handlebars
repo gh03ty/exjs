@@ -13,10 +13,17 @@
     <div id="sidebar" class="sidebar">
         {{#each channelList}}
             <div class="sidebar-button">
+                <div class="pr-1">
+                     <form method = "post" action="/channels/{{channel_id}}/deleteChannel">
+                         <button type="submit" class="close" aria-label="Close">
+                             <span aria-hidden="true">&times;</span>
+                          </button>
+                     </form>
+                </div>
                 <a href="/channels/{{channel_id}}">{{name}}</a>
             </div>
         {{/each}}
-        <form method= "post" , action='/channels/newChannel'>
+        <form method= "post" action='/channels/newChannel'>
             <div class="m-3">
                 <input name="newChannelName" type="text" class="form-control" id="newChannelName" placeholder="New channel name here">
             </div>
