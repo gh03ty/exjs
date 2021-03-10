@@ -142,6 +142,13 @@ app.post('/channels/newChannel', (request, response) => {
 app.post('/channels/:channelName/deleteChannel', (request, response) => {
     const {channelName} = request.params
     const channelFileDir = path.join(CHANNEL_DIR, `${channelName}.json`)
+
+
+    if(channelName === 'channel1') {
+        response.sendStatus(400)
+        return
+    }
+
     if (existingChannelIDs.includes(channelName)) {
         rmSync(channelFileDir)
         response.redirect('/')
