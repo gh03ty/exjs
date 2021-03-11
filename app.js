@@ -64,7 +64,7 @@ app.get('/channels/:channelName/', (request, response) => {
 
         let fileData = readFileSync(currentChannel, FILE_OPTIONS)
         const channel = JSON.parse(fileData)
-        const json_content = {"name": channel.name, "channel_id": channel.channel_id}
+        const json_content = {"name": channel.name, "channel_id": channel.channel_id, "X": channel.X, "Y": channel.Y}
         existingChannelNames.push(channel.name)
         existingChannelIDs.push(channel.channel_id)
         channelList.push(json_content)
@@ -86,10 +86,12 @@ app.get('/channels/:channelName/', (request, response) => {
 app.post('/channels/:channelName/newMessage',(request, response) => {
     const {channelName} = request.params
     const channelFileName = path.join(CHANNEL_DIR, `${channelName}.json`)
-    const { author, message } = request.body
+    const { author, message, X, Y } = request.body
     const content = {
         author,
         message,
+        X,
+        Y
     }
     readFile(
         channelFileName,

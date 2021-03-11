@@ -3,10 +3,6 @@
   "channel_id": "channel4",
   "messages": [
     {
-      "author": "Test 4",
-      "message": "Test 4"
-    },
-    {
       "author": "David Linner",
       "message": "Dann kann ich ja gleich auf mein Gehalt verzichten."
     },

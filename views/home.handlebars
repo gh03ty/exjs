@@ -57,64 +57,113 @@
         <!-- MESSAGE BUTTON TOGGLE -->
         <div class="container-fluid button-container btn-group">
             <button class="btn-chn openbtn btn btn-channel button-menu" value="OFF" onclick="toggleChannel(this)">&#9776; Change Channel</button>
-            <button class="btn-msg openbtn btn btn-channel button-menu" id="message-button" value="ON" data-toggle="collapse" data-target="#messagebox"  onclick="toggleMessageBox(this)">Open Message Box</button>
+            <button class="btn-msg openbtn btn btn-channel button-menu" id="message-button" value="ON" data-toggle="collapse" data-target="#messagebox"  onclick="toggleMessageBox(this)"><s>Open Message Box</s></button>
         </div>
         <!-- ##################### -->
 
 
         <!-- COLLAPSABLE MESSAGE BOX -->
-        <div id="messagebox" class="collapse">
+<!--        <div id="messagebox" class="collapse">-->
 
-            <div class="my-3 p-3">
+<!--            <div class="my-3 p-3">-->
 
                 <!-- MESSAGE INPUT FORM -->
-                <form method = "post" action='/channels/{{#channel}}{{channel_id}}{{/channel}}/newMessage'>
 
-                    <div class="mb-3">
-                        <label for="author" class="form-label">Author</label>
-                        <input name="author" type="text" class="form-control" id="author" placeholder="John Doe">
-                    </div>
+<!--                <form method = "post" action='/channels/{{#channel}}{{channel_id}}{{/channel}}/newMessage'>-->
 
-                    <div class="mb-3">
-                        <label for="message" class="form-label">Message</label>
-                        <textarea name="message" class="form-control" id="message" rows="3"></textarea>
-                    </div>
+<!--                    <div class="mb-3">-->
+<!--                        <label for="author" class="form-label">Author</label>-->
+<!--                        <input name="author" type="text" class="form-control" id="author" placeholder="John Doe">-->
+<!--                    </div>-->
 
-                    <button class="btn btn-right btn-primary" type="submit">Post your message</button>
+<!--                    <div class="mb-3">-->
+<!--                        <label for="message" class="form-label">Message</label>-->
+<!--                        <textarea name="message" class="form-control" id="message" rows="3"></textarea>-->
+<!--                    </div>-->
 
-                </form>
+<!--                    <button class="btn btn-right btn-primary" type="submit">Post your message</button>-->
+
+<!--                </form>-->
+
+
                 <!-- ################## -->
 
-            </div>
+<!--            </div>-->
 
-        </div>
+<!--        </div>-->
+
+
         <!-- ####################### -->
 
     </div>
+
+    <div id="modal" class="modal">
+        <div id="modal-container" class="modal-container">
+            <form method = "post" action='/channels/{{#channel}}{{channel_id}}{{/channel}}/newMessage'>
+
+                <div class="mb-3">
+                    <label for="author" class="form-label">Author</label>
+                    <input name="author" type="text" class="form-control" id="author" placeholder="John Doe">
+                </div>
+
+                <div class="mb-3">
+                    <label for="message" class="form-label">Message</label>
+                    <textarea name="message" class="form-control" id="message" rows="3"></textarea>
+                </div>
+
+                <input type="hidden" name="X" type="text" id="X">
+                <input type="hidden" name="Y" type="text" id="Y">
+
+                <button class="btn btn-right btn-primary" type="submit">Post your message</button>
+
+            </form>
+        </div>
+    </div>
+
     <!-- ############### -->
 
     <!-- PREVIOUS MESSAGES BOX -->
-    <div class="my-3 p-3 bg-white rounded box-shadow">
+<!--    <div class="my-3 p-3 bg-white rounded box-shadow">-->
 
-        <h6 class="border-bottom border-gray pb-2 mb-0">Messages</h6>
+<!--        <h6 class="border-bottom border-gray pb-2 mb-0">Messages</h6>-->
 
         <!-- JSON CONTENT -->
-        {{#channel}}
-            {{#each messages}}
-                <div class="media text-muted pt-3">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png" alt="" class="mr-2 rounded" width="32" height="32">
-                    <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                        <strong class="d-block text-gray-dark">{{author}}</strong>
-                        {{message}}
-                    </p>
-                </div>
-            {{/each}}
-        {{/channel}}
+<!--        {{#channel}}-->
+<!--            {{#each messages}}-->
+<!--                <div class="media text-muted pt-3">-->
+<!--                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png" alt="" class="mr-2 rounded" width="32" height="32">-->
+<!--                    <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">-->
+<!--                        <strong class="d-block text-gray-dark">{{author}}</strong>-->
+<!--                        {{message}}-->
+<!--                    </p>-->
+<!--                </div>-->
+<!--            {{/each}}-->
+<!--        {{/channel}}-->
         <!-- ############ -->
 
-    </div>
+<!--    </div>-->
     <!-- ##################### -->
 
+    <main>
+        <div id="message-board-container" class="message-board-container my-3 p-3 bg-white rounded box-shadow">
+<!--            <h6 class="border-bottom border-gray pb-2 mb-0">Messages</h6>-->
+
+
+            {{#channel}}
+                {{#each messages}}
+                        <div id="message-board-item" class="message-board-item media b-item pt-3" style="top:{{Y}}px; left:{{X}}px" >
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png" alt="" class="mr-2 rounded" width="32" height="32">
+                            <p class="media-body pb-3 mb-0 small lh-125">
+                                <strong class="d-block text-gray-dark">{{author}}</strong>
+                                {{message}}
+                            </p>
+                        </div>
+                {{/each}}
+            {{/channel}}
+
+
+        </div>
+    </main>
 </main>
 <!-- #### -->
 

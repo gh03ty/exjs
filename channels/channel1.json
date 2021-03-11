@@ -4,23 +4,9 @@
   "messages": [
     {
       "author": "Gabor Kovacs",
-      "message": "Ich bin doch viel besser !"
-    },
-    {
-      "author": "Generischer Student No.2",
-      "message": "Am Besten ist immernoch David Linner !"
-    },
-    {
-      "author": "Generischer Student No.1",
-      "message": "Die Lehrer sind einfach die Besten !"
-    },
-    {
-      "author": "Generischer Student No.2",
-      "message": "Ich liebe es auch !"
-    },
-    {
-      "author": "Generischer Student No.1",
-      "message": "Ich liebe es an der SRH Berlin zu studieren !"
+      "message": "Ich bin doch viel besser !",
+      "X": 10,
+      "Y": 10
     }
   ]
 }
